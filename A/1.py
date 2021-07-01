@@ -7,7 +7,6 @@ import os
 import random
 import re
 import sys
-from collections import Counter
 
 #
 # Complete the 'sockMerchant' function below.
