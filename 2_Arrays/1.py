@@ -16,6 +16,7 @@ import sys
 #
 
 def hourglassSum(arr):
+    # Write your code here
     maxi = -32700
     for j in range(0,4):
         for i in range(0,4):
