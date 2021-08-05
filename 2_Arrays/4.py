@@ -9,12 +9,12 @@ import re
 import sys
 
 # Complete the minimumSwaps function below.
-def minimumSwaps(A):
-    k=0
-    for i in range(len(A)):
-        m = A.index(min(A[i:])) 
-        if(m!=i):
-            A[i], A[m] = A[m], A[i]
+def minimumSwaps(a):
+    k,z=0,dict(zip(a,range(1,len(a)+1)))
+    for i in range(1,len(a)+1):
+        if z[i]!=i: 
+            z[a[i-1]]=z[i]
+            a[z[i]-1]=a[i-1]
             k+=1
     return k
 
