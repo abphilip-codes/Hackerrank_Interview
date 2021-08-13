@@ -1,24 +1,19 @@
-S=input()
-l=list(map(str,input().split()))
-ini=[]
-m=0
-c=0
+# Cisco Preliminary Test
+
+S,l,ini,c,m=input(),list(map(str,input().split())),[],0,0
 while(m<len(S)):
     x=m
     while(x<len(S)):
-        if(S[x]!=S[m]):
-            break
+        if(S[x]!=S[m]): break
         x+=1
     ini.append(S[m:x])
     m=x
 for z in l:
-    m=0
-    k=[]
+    m,k=0,[]
     while(m<len(z)):
         x=m
         while(x<len(z)):
-            if(z[x]!=z[m]):
-                break
+            if(z[x]!=z[m]): break
             x+=1
         k.append(z[m:x])
         m=x
