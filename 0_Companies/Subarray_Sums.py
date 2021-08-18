@@ -21,10 +21,7 @@ def findSum(numbers, queries, zeroes):
     ans=[]
     for q in queries:
         s=numbers[q[1]]-numbers[q[0]-1]
-        for z in zeroes:
-            if(z<q[0]): continue
-            if(z>=q[0] and z<=q[1]): s+=q[2]
-            if(z>q[1]): break
+        s+=q[2]*(zeroes[q[1]]-zeroes[q[0]-1])
         ans.append(s)
     return ans
 
@@ -34,12 +31,16 @@ if __name__ == '__main__':
     numbers_count = int(input().strip())
 
     numbers = [0]
-    zeroes = []
+    zeroes = [0]
     numbers_item = 0
+    zero = 0
     for i in range(numbers_count):
         numbers_item += int(input().strip())
         numbers.append(numbers_item)
-        if(numbers[i+1]==numbers[i]): zeroes.append(i+1)
+        if(numbers[i+1]==numbers[i]): 
+            zero+=1
+            zeroes.append(zero)
+        else: zeroes.append(zero)
 
     queries_rows = int(input().strip())
     queries_columns = int(input().strip())
