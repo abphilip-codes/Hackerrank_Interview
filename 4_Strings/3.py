@@ -28,8 +28,7 @@ def isValid(s):
             count+=1
             n.append(d[z])
     if((count<=1 or count==len(d)-1) 
-        and (abs(n[0]-n[-1])<=1 
-        or (len(n)==2 and ones==1))): return "YES" 
+        and (abs(n[0]-n[-1])<=1 or (len(n)==2 and ones==1))): return "YES" 
     else: return "NO"
 
 if __name__ == '__main__':
