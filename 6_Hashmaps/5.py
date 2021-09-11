@@ -12,19 +12,19 @@ from collections import defaultdict
 # Complete the freqQuery function below.
 def freqQuery(queries):
     ans,d = [],{}
-    freqs = defaultdict(set)
-    for command, value in queries:
-        freq = d.get(value, 0)
-        if command == 1:
-            d[value] = freq + 1
-            freqs[freq].discard(value)
-            freqs[freq + 1].add(value)
-        elif command == 2:
-            d[value] = max(0, freq - 1)
-            freqs[freq].discard(value)
-            freqs[freq - 1].add(value)
-        elif command == 3:
-            ans.append(1 if freqs[value] else 0)
+    freq = defaultdict(set)
+    for (i,v) in queries:
+        f = d.get(v,0)
+        if(i==1):
+            d[v]=f+1
+            freq[f].discard(v)
+            freq[f+1].add(v)
+        elif(i==2):
+            d[v] = max(0,f-1)
+            freq[f].discard(v)
+            freq[f-1].add(v)
+        elif(i==3):
+            ans.append(1 if freq[v] else 0)
     return ans  
 
 if __name__ == '__main__':
