@@ -21,12 +21,15 @@ def reverseShuffleMerge(s):
     for z in s: f[z]+=1
     r,ans,u = dict(f),[],defaultdict(int)
     
+    def can_pop(char): return u[char]+r[char]-1>=f[char]//2
     for z in reversed(s):
-        if ((f[z]//2-u[z])>0):
-            while(ans and ans[-1]>z and u[z]+r[z]-1>=f[z]//2): u[ans.pop()]-=1
-            u[z]+=1
+        if((f[z]//2-u[z])>0):
+            while ans and ans[-1] > z and can_pop(ans[-1]):
+                removed_char = ans.pop()
+                u[removed_char] -= 1
+            u[z] += 1
             ans.append(z)
-        r[z]-=1
+        r[z] -= 1
     return "".join(ans)
 
 if __name__ == '__main__':
