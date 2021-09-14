@@ -23,7 +23,7 @@ def reverseShuffleMerge(s):
     
     for z in reversed(s):
         if((f[z]//2-u[z])>0):
-            while ans and ans[-1]>z and u[ans[-1]]+r[ans[-1]]-1>=f[ans[-1]]//2: u[ans.pop()]-=1
+            while(ans and ans[-1]>z and u[ans[-1]]+r[ans[-1]]-1>=f[ans[-1]]//2): u[ans.pop()]-=1
             u[z]+=1
             ans.append(z)
         r[z]-=1
