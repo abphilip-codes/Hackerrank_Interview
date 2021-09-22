@@ -16,25 +16,13 @@ import sys
 #
 
 def decibinaryNumbers(x):
-    my_dict={}
-    result=[]
-    for i in range(0,100000):
-        deci=db_value(i)
-        my_dict.update({i:deci})
-    
-    temp=sorted (my_dict.items(),key=lambda kv:(kv[1],kv[0]))
-
-    return(temp[x-1][0])        
-        
-def db_value(num):
-    n=0
-    deci=0
-    while(num>0):
-        rem=num%10
-        deci+=rem*(2**n)
-        num=num//10
-        n+=1
-    return deci
+    d={}
+    for z in range(0,100000):
+        n,r=str(z)[::-1],0
+        for y in range(len(n)): r+=int(n[y])*(2**y)
+        d.update({z:r})
+    ans=sorted(d.items(),key=lambda i:(i[1],i[0]))
+    return(ans[x-1][0])        
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
