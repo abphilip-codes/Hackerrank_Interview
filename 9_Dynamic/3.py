@@ -18,24 +18,16 @@ import sys
 #
 
 def candies(n,arr):
-    s=c=[0]*n
-    for i in range(len(arr)):
-            if i == 0 or s[i-1] == 1:
-                    s[i] = get_num_descending(arr, i)
-            else:
-                    s[i] = s[i-1] - 1
-            c[i] = s[i] if arr[i] <= arr[i-1] else max(s[i], c[i-1]+1)
+    s,c = [0]*n,[0]*n
+    for z in range(n):
+        if (z==0 or s[z-1]==1):
+            s[z]+=1
+            for y in range(z,n-1):
+                if (arr[y]>arr[y+1]): s[z]+=1
+                else: break
+        else: s[z] = s[z-1]-1
+        c[z] = s[z] if (arr[z]<=arr[z-1]) else max(s[z],c[z-1]+1)
     return sum(c)
-
-def get_num_descending(arr, i):
-    ret = 1
-    while i + 1 < len(arr):
-            if arr[i] > arr[i+1]:
-                    ret += 1
-                    i += 1
-            else:
-                    return ret
-    return ret
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
