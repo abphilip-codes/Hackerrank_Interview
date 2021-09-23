@@ -1,4 +1,4 @@
-# 
+# https://www.hackerrank.com/challenges/balanced-brackets/problem
 
 #!/bin/python3
 
@@ -17,11 +17,13 @@ import sys
 
 def isBalanced(s):
     l=[]
-    for z in s:
-        if(z==']' and l[-1]=='['): l.pop(-1)
-        elif(z==')' and l[-1]=='('): l.pop(-1)
-        elif(z=='}' and l[-1]=='{'): l.pop(-1)
-        else: l.append(z)
+    try:
+        for z in s:
+            if(z==']' and l[-1]=='['): l.pop(-1)
+            elif(z==')' and l[-1]=='('): l.pop(-1)
+            elif(z=='}' and l[-1]=='{'): l.pop(-1)
+            else: l.append(z)
+    except: return "NO"
     return "YES" if(l==[]) else "NO"
 
 if __name__ == '__main__':
