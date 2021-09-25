@@ -16,19 +16,12 @@ import sys
 #
 
 def largestRectangle(h):
-    ans = 0
-    for z in range(len(h)):
-        c = 0
-        for a in range(z,-1,-1):
-            if(h[a]<h[z]): break 
-            c+=1
-        for b in range(z+1,len(h)):
-            if(h[b]<h[z]): break 
-            c+=1
+    ans,n = 0,len(h)
+    for z in range(n):
+        a,b,c = z,z+1,0
+        while(a>=0 and h[a]>=h[z]): a,c=a-1,c+1
+        while(b<n and h[b]>=h[z]): b,c=b+1,c+1
         ans = max(ans,h[z]*c)
-        print("C:",c)
-        print("B:",b)
-        print("A:",a)
     return ans
 
 if __name__ == '__main__':
