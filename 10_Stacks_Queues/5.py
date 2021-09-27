@@ -25,22 +25,20 @@ def minimumMoves(grid, startX, startY, goalX, goalY):
     visited_nodes = set()
     q = deque()
     q.appendleft((startX, startY, 0))
-    neighboring_nodes = [(-1, 0),(1, 0),(0, -1),(0, 1)]
-    grid_dimension = len(grid)
+    n = [(-1, 0),(1, 0),(0, -1),(0, 1)]
     while q:
-        (current_x, current_y, dist) = q.pop()
-        new_dist = dist + 1
-        for neighboring_node_diff in neighboring_nodes:
-            x = current_x + neighboring_node_diff[0]
-            y = current_y + neighboring_node_diff[1]
-            while (0 <= x < grid_dimension) and (0 <= y < grid_dimension) and (grid[x][y] != 'X'):
+        (cx, cy, dist) = q.pop()
+        for d in n:
+            x = cx + d[0]
+            y = cy + d[1]
+            while (0 <= x < len(grid)) and (0 <= y < len(grid)) and (grid[x][y] != 'X'):
                 if (x, y) == (goalX, goalY):
-                    return new_dist
+                    return dist+1
                 elif (x, y) not in visited_nodes:
-                    q.appendleft((x, y, new_dist))
+                    q.appendleft((x, y, dist+1))
                     visited_nodes.add((x, y))
-                x += neighboring_node_diff[0]
-                y += neighboring_node_diff[1]
+                x += d[0]
+                y += d[1]
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
