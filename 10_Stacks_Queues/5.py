@@ -29,9 +29,9 @@ def minimumMoves(grid, startX, startY, goalX, goalY):
     while q:
         (cx, cy, dist) = q.pop()
         for d in n:
-            x=cx+d[0]
-            y=cy+d[1]
-            while (0<=x<len(grid)) and (0<=y<len(grid)) and (grid[x][y]!='X'):
+            x = cx + d[0]
+            y = cy + d[1]
+            while x in range(0,len(grid)) and y in range(0,len(grid)) and (grid[x][y]!='X'):
                 if (x, y) == (goalX, goalY): return dist+1
                 elif (x, y) not in v:
                     q.appendleft((x, y, dist+1))
