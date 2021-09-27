@@ -22,23 +22,22 @@ from collections import deque
 #
 
 def minimumMoves(grid, startX, startY, goalX, goalY):
-    visited_nodes = set()
+    v = set()
     q = deque()
     q.appendleft((startX, startY, 0))
     n = [(-1, 0),(1, 0),(0, -1),(0, 1)]
     while q:
         (cx, cy, dist) = q.pop()
         for d in n:
-            x = cx + d[0]
-            y = cy + d[1]
-            while (0 <= x < len(grid)) and (0 <= y < len(grid)) and (grid[x][y] != 'X'):
-                if (x, y) == (goalX, goalY):
-                    return dist+1
-                elif (x, y) not in visited_nodes:
+            x=cx+d[0]
+            y=cy+d[1]
+            while (0<=x<len(grid)) and (0<=y<len(grid)) and (grid[x][y]!='X'):
+                if (x, y) == (goalX, goalY): return dist+1
+                elif (x, y) not in v:
                     q.appendleft((x, y, dist+1))
-                    visited_nodes.add((x, y))
-                x += d[0]
-                y += d[1]
+                    v.add((x, y))
+                x+=d[0]
+                y+=d[1]
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
