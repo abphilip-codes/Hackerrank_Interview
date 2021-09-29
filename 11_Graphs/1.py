@@ -23,23 +23,19 @@ def dfs(s,a,b):
     b[s]=True
     cost=0
     for i in a[s]:
-        if(not b[i]):
-            cost+=1
-            cost+=dfs(i,a,b)
+        if(not b[i]): cost+=(dfs(i,a,b)+1)
     return cost
+
 def roadsAndLibraries(n, c_lib, c_road, cities):
     if(c_lib<c_road or cities==[]): return c_lib*n
-    a=[[0] for z in range(n+1)]
-    b=[False]*(n+1)
+    a,b,c=[[0] for z in range(n+1)],[False]*(n+1),0
     for z in range(1,n+1): a[z][0]=z
     for z in range(m):
         a[cities[z][0]].append(cities[z][1])
         a[cities[z][1]].append(cities[z][0])
-    v=0
-    for i in range(1,n+1):
-        if(not b[i]):
-            v+=dfs(i,a,b)
-    ans=(((v)*c_road)+((n-v)*c_lib))
+    for z in range(1,n+1):
+        if(not b[z]): c+=dfs(z,a,b)
+    ans=(((c)*c_road)+((n-c)*c_lib))
     return ans
 
 if __name__ == '__main__':
