@@ -19,12 +19,11 @@ import sys
 #  4. 2D_INTEGER_ARRAY cities
 #
 
-def dfs(s,a,b):
-    b[s]=True
-    cost=0
-    for i in a[s]:
-        if(not b[i]): cost+=(dfs(i,a,b)+1)
-    return cost
+def dfs(k,a,b):
+    b[k],ret=True,0
+    for z in a[k]:
+        if(not b[z]): ret+=(dfs(z,a,b)+1)
+    return ret
 
 def roadsAndLibraries(n, c_lib, c_road, cities):
     if(c_lib<c_road or cities==[]): return c_lib*n
