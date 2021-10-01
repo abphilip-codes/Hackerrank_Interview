@@ -30,36 +30,21 @@ def findShortest(graph_nodes, graph_from, graph_to, ids, val):
     for i in range(len(ids)):
         if (ids[i]==val): t.append(i+1)
     ans=-1
-    for node in t:
-        #w = check(g,t,node,ans)
+    for z in t:
         v = set()
         q = Queue()
-        q.put((node, 0))
+        q.put((z,0))
         while (q.empty()!=True):
-            n,w = q.get()
+            n,k = q.get()
             if (n in v): continue
-            if (n in t and n!=node): break
+            if (n in t and n!=z): break
             v.add(n)
-            if (w==ans): w=-1
+            if (k==ans): k=-1
             for z in g[n]:
-                if z not in v: q.put((z,w+1))
-        else: w=-1
-        if (w>0 and w<ans or ans==-1): ans=w
+                if z not in v: q.put((z,k+1))
+        else: k=-1
+        if (k>0 and k<ans or ans==-1): ans=k
     return ans
-
-def check(g,t,node,ans=-1):
-    v = set()
-    q = Queue()
-    q.put((node, 0))
-    while (q.empty()!=True):
-        n,w = q.get()
-        if (n in v): continue
-        if (n in t and n!=node): return w
-        v.add(n)
-        if (w==ans): return -1
-        for z in g[n]:
-            if z not in v: q.put((z,w+1))
-    return -1
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
