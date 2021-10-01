@@ -20,40 +20,45 @@ from collections import deque
 # 3. An edge exists between <name>_from[i] to <name>_to[i].
 #
 #
+
 def findShortest(graph_nodes, graph_from, graph_to, ids, val):
-    g = {i + 1: [] for i in range(graph_nodes)}
-    for i in range(len(graph_from)):
-        g[graph_from[i]].append(graph_to[i])
-        g[graph_to[i]].append(graph_from[i])
-
-    target_nodes = []
-
+    g = {z+1: [] for z in range(graph_nodes)}
+    for z in range(len(graph_from)):
+        g[graph_from[z]].append(graph_to[z])
+        g[graph_to[z]].append(graph_from[z])
+    t = []
     for i in range(len(ids)):
-        if ids[i] == val:
-            target_nodes.append(i + 1)
-    result = -1
-    for node in target_nodes:
-        w = weight(g, target_nodes, node, result)
-        if w >0 and w < result or result == -1:
-            result = w
-    return result
+        if (ids[i]==val): t.append(i+1)
+    ans=-1
+    for node in t:
+        #w = check(g,t,node,ans)
+        v = set()
+        q = Queue()
+        q.put((node, 0))
+        while (q.empty()!=True):
+            n,w = q.get()
+            if (n in v): continue
+            if (n in t and n!=node): break
+            v.add(n)
+            if (w==ans): w=-1
+            for z in g[n]:
+                if z not in v: q.put((z,w+1))
+        else: w=-1
+        if (w>0 and w<ans or ans==-1): ans=w
+    return ans
 
-def weight(g, target_nodes, node, limit=-1):
-    visited = set()
+def check(g,t,node,ans=-1):
+    v = set()
     q = Queue()
     q.put((node, 0))
-    while not q.empty():
-        n, w = q.get()
-        if n in visited:
-            continue
-        if n in target_nodes and n != node:
-            return w
-        visited.add(n)
-        if w == limit:
-            return -1
-        for next_node in g[n]:
-            if next_node not in visited:
-                q.put((next_node, w + 1))
+    while (q.empty()!=True):
+        n,w = q.get()
+        if (n in v): continue
+        if (n in t and n!=node): return w
+        v.add(n)
+        if (w==ans): return -1
+        for z in g[n]:
+            if z not in v: q.put((z,w+1))
     return -1
 
 if __name__ == '__main__':
