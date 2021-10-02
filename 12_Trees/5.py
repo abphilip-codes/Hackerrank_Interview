@@ -20,55 +20,35 @@ from collections import Counter, defaultdict
 #
 
 def balancedForest(c, edges):
-    n = len(c)
-    adj = [[] for i in range(n)]
-    for v0, v1 in edges:
-        adj[v0 - 1].append(v1 - 1)
-        adj[v1 - 1].append(v0 - 1)
-
-    def sumTree(i, p):
-        s = 0
-        for j in adj[i]:
-            if j != p:
-                s += sumTree(j, i)
-
-        s += c[i]
-        sumCounts[s] += 1
-        totals[i] = s
-        return s
+    def st(i,p):
+        ans=0
+        for z in a[i]:
+            if z!=p: ans+=st(z,i)
+        ans+=c[i]
+        sc[ans],tl[i]=sc[ans]+1,ans
+        return ans
     
-    def minExtra(i, p, path):
-        s = totals[i]
+    def me(i,p,path):
+        s = tl[i]
         path.add(s)
-        m = min((minExtra(j, i, path) for j in adj[i] if j != p), default=inf)
-
-        if 3*s < t:
-            if (t + s) % 2 == 0:
-                s0 = (t + s) // 2
-                if s0 in path:
-                    m = min(m, s0 - 2*s)
-                s1 = (t - s) // 2
-                sumCount = sumCounts[s1]
-                if sumCount > 0 and (s1 not in path or sumCount > 1):
-                    m = min(m, s1 - s)
-        else:
-            s0 = 2*s
-            if s0 in path:
-                m = min(m, s + s0 - t)
-            s0 = t - s
-            if s0 in path:
-                m = min(m, 2*s - s0)
-            # s1 = s
-            if sumCounts[s] > 1:
-                m = min(m, 3*s - t)
+        m = min((me(z,i,path) for z in a[i] if z!=p), default=inf)
         
+        if (3*s<t):
+            if (t+s)%2==0:
+                if ((t+s)//2) in path: m = min(m,((t+s)//2)-2*s)
+                if sc[((t-s)//2)]>0 and (((t-s)//2) not in path or sc[((t-s)//2)]>1): m = min(m,((t-s)//2)-s)
+        elif (2*s in path or (t-s) in path or sc[s]>1): m = min(m,3*s-t)
         path.remove(s)
         return m
-
-    sumCounts = Counter()
-    totals = {}
-    t = sumTree(0, None)
-    m = minExtra(0, None, set())
+        
+    n = len(c)
+    a = [[] for z in range(n)]
+    for z, y in edges:
+        a[z-1].append(y-1)
+        a[y-1].append(z-1)
+    sc,tl = Counter(),{}
+    t = st(0, None)
+    m = me(0, None, set())
     return m if m < inf else -1
 
 if __name__ == '__main__':
