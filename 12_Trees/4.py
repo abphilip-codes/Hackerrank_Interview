@@ -19,7 +19,7 @@ class Node:
             return self.freq < other.freq
         return self._count < other._count
 
-def huffman_hidden():#builds the tree and returns root
+def huffman_hidden():
     q = Queue.PriorityQueue()
 
     
@@ -35,7 +35,7 @@ def huffman_hidden():#builds the tree and returns root
         q.put((obj.freq, obj.data, obj ))
         
     root = q.get()
-    root = root[2]#contains root object
+    root = root[2]
     return root
 
 def dfs_hidden(obj, already):
