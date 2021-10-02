@@ -10,6 +10,7 @@ class Node:
         self.data = data
         self.left = None
         self.right = None
+        
         global cntr
         self._count = cntr
         cntr = cntr + 1
@@ -21,7 +22,6 @@ class Node:
 
 def huffman_hidden():
     q = Queue.PriorityQueue()
-
     
     for key in freq:
         q.put((freq[key], key, Node(freq[key], key) ))
