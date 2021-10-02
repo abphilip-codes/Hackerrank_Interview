@@ -25,10 +25,8 @@ def p(char, w_map, words, spaces):
         if (len(w)!=len(s)): continue
         done,r = True,[]
         for z,(y,x) in enumerate(s):
-            if (w_map[y][x]!=char and w_map[y][x]!=w[z]):
-                done = False
-                break
-            if (w_map[y][x]==char):
+            if (w_map[y][x]!=char and w_map[y][x]!=w[z]): done = False
+            elif (w_map[y][x]==char):
                 r.append((y,x))
                 w_map[y][x] = w[z]
         if done:
@@ -37,7 +35,7 @@ def p(char, w_map, words, spaces):
             m = p(char,deepcopy(w_map),n,spaces[1:])
             if (m!=[]): return m
             else:
-                for y,x in r: w_map[y][x] = char
+                for (y,x) in r: w_map[y][x] = char
     return []
 
 def crosswordPuzzle(crossword, words):
